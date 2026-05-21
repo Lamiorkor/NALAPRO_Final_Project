@@ -1,0 +1,797 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NALAPRO Final Project Presentation</title>
+  <style>
+    :root {
+      --ink: #17212b;
+      --muted: #5d6875;
+      --paper: #f8faf9;
+      --panel: #ffffff;
+      --line: #dce4e1;
+      --teal: #0f8b8d;
+      --coral: #e76f51;
+      --gold: #d9a441;
+      --indigo: #4c5fd7;
+      --green: #2a9d8f;
+      --shadow: 0 24px 70px rgba(23, 33, 43, 0.16);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(15, 139, 141, 0.08), transparent 38%),
+        linear-gradient(180deg, #edf5f4 0%, #f8faf9 45%, #fff 100%);
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .deck {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .slide {
+      width: 100%;
+      height: 100%;
+      padding: 54px 70px 72px;
+      display: none;
+      position: absolute;
+      inset: 0;
+    }
+
+    .slide.active {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 28px;
+      animation: fadeIn 180ms ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .eyebrow {
+      color: var(--teal);
+      font-size: 15px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+
+    h1, h2 {
+      margin: 0;
+      letter-spacing: -0.02em;
+      line-height: 1.04;
+    }
+
+    h1 {
+      font-size: clamp(48px, 6vw, 82px);
+      max-width: 980px;
+    }
+
+    h2 {
+      font-size: clamp(38px, 4.3vw, 58px);
+      max-width: 1040px;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 24px;
+      line-height: 1.18;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 21px;
+      line-height: 1.42;
+    }
+
+    .lead {
+      max-width: 900px;
+      font-size: 26px;
+      color: #33414d;
+    }
+
+    .content {
+      min-height: 0;
+      display: grid;
+      align-content: center;
+      gap: 24px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .cards {
+      display: grid;
+      gap: 16px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 22px;
+      box-shadow: 0 10px 34px rgba(23, 33, 43, 0.08);
+    }
+
+    .card strong {
+      color: var(--ink);
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .metric {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      min-height: 126px;
+      box-shadow: 0 10px 28px rgba(23, 33, 43, 0.07);
+    }
+
+    .metric .value {
+      display: block;
+      font-size: 36px;
+      font-weight: 900;
+      color: var(--teal);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .metric .label {
+      display: block;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.25;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .step {
+      position: relative;
+      padding: 20px 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      min-height: 178px;
+      box-shadow: 0 10px 28px rgba(23, 33, 43, 0.07);
+    }
+
+    .step .num {
+      display: inline-grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      color: white;
+      background: var(--indigo);
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+
+    .step:nth-child(2) .num { background: var(--teal); }
+    .step:nth-child(3) .num { background: var(--coral); }
+    .step:nth-child(4) .num { background: var(--gold); }
+    .step:nth-child(5) .num { background: var(--green); }
+
+    ul {
+      margin: 0;
+      padding-left: 1.1em;
+      color: #34414c;
+      font-size: 21px;
+      line-height: 1.42;
+    }
+
+    li { margin: 8px 0; }
+
+    .bar-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: minmax(220px, 330px) 1fr 74px;
+      gap: 14px;
+      align-items: center;
+      font-size: 18px;
+      color: #243340;
+    }
+
+    .track {
+      height: 24px;
+      background: #eaf0ee;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid #d8e1de;
+    }
+
+    .fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--teal), var(--indigo));
+    }
+
+    .fill.coral { background: linear-gradient(90deg, var(--coral), var(--gold)); }
+    .fill.green { background: linear-gradient(90deg, var(--green), var(--teal)); }
+
+    .plot {
+      width: 100%;
+      max-height: 520px;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: white;
+      box-shadow: var(--shadow);
+    }
+
+    .plot.small {
+      max-height: 360px;
+      box-shadow: 0 10px 34px rgba(23, 33, 43, 0.1);
+    }
+
+    .quote {
+      padding: 28px 34px;
+      border-left: 8px solid var(--coral);
+      background: white;
+      border-radius: 8px;
+      font-size: 30px;
+      line-height: 1.28;
+      box-shadow: var(--shadow);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding: 0 13px;
+      border-radius: 999px;
+      background: #eef6f4;
+      border: 1px solid #cfe6e2;
+      color: #16474a;
+      font-size: 16px;
+      font-weight: 750;
+    }
+
+    .footer {
+      position: fixed;
+      left: 70px;
+      right: 70px;
+      bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #677480;
+      font-size: 14px;
+      z-index: 5;
+    }
+
+    .progress {
+      height: 6px;
+      width: 240px;
+      background: #dfe8e5;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--teal), var(--coral));
+      border-radius: 999px;
+      transition: width 160ms ease;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    button {
+      border: 1px solid #cbd8d5;
+      background: white;
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 9px 13px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(23, 33, 43, 0.08);
+    }
+
+    .notes {
+      position: fixed;
+      right: 24px;
+      bottom: 70px;
+      width: min(520px, calc(100vw - 48px));
+      max-height: 36vh;
+      overflow: auto;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      display: none;
+      z-index: 10;
+    }
+
+    .notes.visible { display: block; }
+
+    .notes h4 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .notes p {
+      font-size: 16px;
+      line-height: 1.45;
+      color: #34414c;
+    }
+
+    .title-slide {
+      background:
+        linear-gradient(120deg, rgba(15, 139, 141, 0.18), transparent 42%),
+        linear-gradient(45deg, rgba(231, 111, 81, 0.14), transparent 48%);
+    }
+
+    .title-slide .content {
+      align-content: end;
+      padding-bottom: 80px;
+    }
+
+    .nameplate {
+      margin-top: 30px;
+      display: grid;
+      gap: 8px;
+      color: #34414c;
+      font-size: 24px;
+    }
+
+    .nameplate strong {
+      font-size: 30px;
+      color: var(--ink);
+    }
+
+    .callout {
+      background: #17212b;
+      color: white;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .callout p { color: #d9e4e1; }
+    .callout strong { color: white; }
+
+    .split-card {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .big-number {
+      font-size: 92px;
+      font-weight: 950;
+      letter-spacing: -0.06em;
+      color: var(--coral);
+      line-height: 0.9;
+    }
+
+    .matrix-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      body { overflow: auto; }
+      .deck { height: auto; }
+      .slide {
+        position: static;
+        min-height: 100vh;
+        padding: 34px 22px 86px;
+      }
+      .two-col, .three-col, .timeline, .matrix-grid, .metric-grid {
+        grid-template-columns: 1fr;
+      }
+      .bar-row { grid-template-columns: 1fr; }
+      .footer { left: 22px; right: 22px; }
+    }
+
+    @media print {
+      body { overflow: visible; background: white; }
+      .slide {
+        display: grid !important;
+        position: relative;
+        page-break-after: always;
+        height: 100vh;
+      }
+      .footer, .notes { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" aria-live="polite">
+    <section class="slide title-slide active" data-notes="Open with the story: this project is a practical comparison of classic NLP, supervised transformers, and LLM prompting/fine-tuning on the same text classification problem. Keep the technical definitions for Q&A, not the main talk.">
+      <div>
+        <div class="eyebrow">Natural Language Processing</div>
+        <h1>Classifying 20 Newsgroups: Applying Word2Vec, TF-IDF, BERT and Llama-3</h1>
+      </div>
+      <div class="content">
+        <p class="lead">A compact tour through the experiments, what worked, what disappointed me, and what I learned about prompt-based classification.</p>
+        <div class="nameplate">
+          <strong>Naa Lamiorkor Boye</strong>
+          <span>NALAPRO Final Project</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-notes="This slide answers the lecturer's initial problem request. Emphasize that the project is not just to get one number, but to compare representations and learning setups under a common classification task.">
+      <div>
+        <div class="eyebrow">Initial Problem</div>
+        <h2>Can different NLP representations reliably classify discussion posts into 20 topics?</h2>
+      </div>
+      <div class="content two-col">
+        <div class="quote">The challenge was to map noisy user-written posts into fine-grained newsgroup categories.</div>
+        <div class="cards">
+          <div class="card">
+            <h3>Why it is interesting</h3>
+            <p>Some topics are obvious, but many are close together: religion, politics, computer hardware, operating systems, and technical science discussions.</p>
+          </div>
+          <div class="card">
+            <h3>What I compared</h3>
+            <p>Classic vectorization, supervised BERT fine-tuning, BERT domain adaptation, Llama-3 prompting, and a bonus QLoRA fine-tuning run.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-notes="Dataset slide: say 20 Newsgroups comes from scikit-learn, not uploaded to the repo. Mention the cleaned setting and why headers/quotes were removed for fair comparison.">
+      <div>
+        <div class="eyebrow">Dataset</div>
+        <h2>20 Newsgroups, 20 classes, thousands of short documents</h2>
+      </div>
+      <div class="content">
+        <div class="metric-grid">
+          <div class="metric"><span class="value">20</span><span class="label">newsgroup categories</span></div>
+          <div class="metric"><span class="value">9,912</span><span class="label">non-empty training documents after split</span></div>
+          <div class="metric"><span class="value">7,317</span><span class="label">cleaned test documents for BERT comparison</span></div>
+          <div class="metric"><span class="value">2,000</span><span class="label">stratified Llama prompt-evaluation subset</span></div>
+        </div>
+        <div class="two-col">
+          <div class="card">
+            <h3>Main preprocessing</h3>
+            <ul>
+              <li>Removed headers, footers, and quoted text for the main experiments.</li>
+              <li>Removed empty documents after cleaning.</li>
+              <li>Used weighted F1 because this is a multi-class problem.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Extra Llama analysis</h3>
+            <p>I also ran a full-context zero-shot Llama experiment with headers and quotes included. This was not a fair main comparison, but it helped explain Llama's behavior.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-notes="Use this as the roadmap. You can say the project gradually increased model capability: fixed simple NN first, then BERT, then Llama prompting, then optional fine-tuning.">
+      <div>
+        <div class="eyebrow">Experimental Roadmap</div>
+        <h2>I moved from simple representations to task-specific transformer training</h2>
+      </div>
+      <div class="content">
+        <div class="timeline">
+          <div class="step"><span class="num">1</span><h3>Word2Vec</h3><p>Train embeddings, average word vectors, classify with a simple NN.</p></div>
+          <div class="step"><span class="num">2</span><h3>TF-IDF</h3><p>Use sparse term-weight features with the same NN architecture.</p></div>
+          <div class="step"><span class="num">3</span><h3>BERT</h3><p>Fine-tune BERT-base directly for 20-class classification.</p></div>
+          <div class="step"><span class="num">4</span><h3>MLM + BERT</h3><p>Adapt BERT with masked language modeling, then fine-tune.</p></div>
+          <div class="step"><span class="num">5</span><h3>Llama-3</h3><p>Try zero-shot, few-shot, full-context analysis, and QLoRA bonus.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-notes="Task 1 slide. Mention the architecture stayed simple, so the improvement came mostly from better representation. The n-gram TF-IDF extra experiment was the strongest Task 1 result.">
+      <div>
+        <div class="eyebrow">Tasks 1 and 2</div>
+        <h2>Representation quality mattered even before transformers</h2>
+      </div>
+      <div class="content two-col">
+        <div class="bar-list">
+          <div class="bar-row"><span>Word2Vec, 1 epoch</span><div class="track"><div class="fill coral" style="width:26.43%"></div></div><strong>26.43%</strong></div>
+          <div class="bar-row"><span>Word2Vec, 20 epochs</span><div class="track"><div class="fill coral" style="width:62.61%"></div></div><strong>62.61%</strong></div>
+          <div class="bar-row"><span>TF-IDF</span><div class="track"><div class="fill" style="width:64.23%"></div></div><strong>64.23%</strong></div>
+          <div class="bar-row"><span>TF-IDF n-grams</span><div class="track"><div class="fill" style="width:66.95%"></div></div><strong>66.95%</strong></div>
+          <div class="bar-row"><span>TF-IDF n-grams, no empty docs</span><div class="track"><div class="fill green" style="width:68.75%"></div></div><strong>68.75%</strong></div>
+        </div>
+        <div class="cards">
+          <div class="card">
+            <h3>What improved</h3>
+            <p>Word2Vec improved with more epochs, but TF-IDF and n-grams captured discriminative topic words more directly.</p>
+          </div>
+          <div class="card">
+            <h3>Extra experiment</h3>
+            <p>TF-IDF `(1, 2)`-grams improved the simple NN result because short phrases carry useful topic signals.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-notes="BERT result slide. Keep it simple: supervised BERT beats Task 1. MLM adaptation on all training text gave a small improvement, which is plausible but not dramatic because 20 Newsgroups is general English and BERT is already strong.">
+      <div>
+        <div class="eyebrow">BERT Experiments</div>
+        <h2>Fine-tuning BERT was the strongest full-test method</h2>
+      </div>
+      <div class="content two-col">
+        <div class="cards">
+          <div class="card split-card">
+            <div><span class="big-number">73.28%</span></div>
+            <div><h3>BERT-base fine-tuned</h3><p>Weighted F1: <strong>0.7289</strong><br>Full cleaned test set: <strong>7,317</strong> documents</p></div>
+          </div>
+          <div class="card split-card">
+            <div><span class="big-number" style="color:var(--teal)">74.01%</span></div>
+            <div><h3>MLM-adapted BERT</h3><p>Weighted F1: <strong>0.7370</strong><br>MLM samples: <strong>9,912</strong></p></div>
+          </div>
+        </div>
+        <img class="plot small" src="outputs/task3_confusion_matrix.png" alt="Task 3 BERT MLM confusion matrix" />
+      </div>
+    </section>
+
+    <section class="slide" data-notes="This is where you explain what did not go well. Do not apologize. Frame it scientifically: Llama was not trained as a classifier, labels were fine-grained, and prompt format mattered. Your results are still informative.">
+      <div>
+        <div class="eyebrow">Llama-3 Prompting</div>
+        <h2>Prompting Llama-3 was useful, but weaker than supervised learning</h2>
+      </div>
+      <div class="content two-col">
+        <div class="bar-list">
+          <div class="bar-row"><span>Zero-shot, cleaned text</span><div class="track"><div class="fill" style="width:34.20%"></div></div><strong>34.20%</strong></div>
+          <div class="bar-row"><span>Few-shot, cleaned text</span><div class="track"><div class="fill" style="width:31.75%"></div></div><strong>31.75%</strong></div>
+          <div class="bar-row"><span>Zero-shot, full context</span><div class="track"><div class="fill green" style="width:37.75%"></div></div><strong>37.75%</strong></div>
+        </div>
+        <div class="cards">
+          <div class="card">
+            <h3>Why the scores were low</h3>
+            <ul>
+              <li>Llama was used as a generative classifier, not fine-tuned.</li>
+              <li>Some labels overlap semantically.</li>
+              <li>Cleaned documents removed metadata that Llama could exploit.</li>
+              <li>Few-shot examples can add noise when there are 20 classes.</li>
+            </ul>
+          </div>
+          <div class="callout"><p><strong>Important lesson:</strong> prompt consistency mattered. Few-shot improved only after examples and requested output format both used label numbers.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-notes="Bonus slide. Be explicit about the caveat: QLoRA was evaluated on 500 samples, so do not oversell it as beating BERT under identical conditions. It shows the promise of task adaptation.">
+      <div>
+        <div class="eyebrow">Bonus Experiment</div>
+        <h2>QLoRA changed the Llama story</h2>
+      </div>
+      <div class="content two-col">
+        <div class="cards">
+          <div class="card">
+            <h3>Llama-3 QLoRA fine-tuned</h3>
+            <div class="metric-grid" style="grid-template-columns: repeat(2, 1fr); margin-top: 14px;">
+              <div class="metric"><span class="value">75.00%</span><span class="label">test accuracy on 500 samples</span></div>
+              <div class="metric"><span class="value">0.7434</span><span class="label">weighted F1</span></div>
+              <div class="metric"><span class="value">2,000</span><span class="label">training samples</span></div>
+              <div class="metric"><span class="value">0.6%</span><span class="label">unparsed output rate</span></div>
+            </div>
+          </div>
+          <div class="callout"><p>This is a bonus result on a smaller subset, so I treat it as evidence that task adaptation helps, not as a direct full-test replacement for BERT.</p></div>
+        </div>
+        <img class="plot small" src="outputs/bonus_llama3_comparison_f1.png" alt="Llama prompt versus QLoRA comparison" />
+      </div>
+    </section>
+
+    <section class="slide" data-notes="Use this slide for the central result. The sorted weighted F1 chart is the one graph to linger on. Say BERT MLM is best among full-test comparable methods.">
+      <div>
+        <div class="eyebrow">Final Results</div>
+        <h2>Weighted F1 ranking across the main experiments</h2>
+      </div>
+      <div class="content">
+        <div class="bar-list">
+          <div class="bar-row"><span>BERT MLM-adapted</span><div class="track"><div class="fill green" style="width:73.70%"></div></div><strong>0.737</strong></div>
+          <div class="bar-row"><span>BERT base fine-tuned</span><div class="track"><div class="fill green" style="width:72.89%"></div></div><strong>0.729</strong></div>
+          <div class="bar-row"><span>TF-IDF n-grams, no empty docs</span><div class="track"><div class="fill" style="width:68.70%"></div></div><strong>0.687</strong></div>
+          <div class="bar-row"><span>TF-IDF n-grams</span><div class="track"><div class="fill" style="width:67.20%"></div></div><strong>0.672</strong></div>
+          <div class="bar-row"><span>TF-IDF</span><div class="track"><div class="fill" style="width:64.58%"></div></div><strong>0.646</strong></div>
+          <div class="bar-row"><span>Word2Vec, 20 epochs</span><div class="track"><div class="fill coral" style="width:61.76%"></div></div><strong>0.618</strong></div>
+          <div class="bar-row"><span>Llama-3 zero-shot, full context</span><div class="track"><div class="fill coral" style="width:34.34%"></div></div><strong>0.343</strong></div>
+          <div class="bar-row"><span>Llama-3 zero-shot</span><div class="track"><div class="fill coral" style="width:31.47%"></div></div><strong>0.315</strong></div>
+          <div class="bar-row"><span>Llama-3 few-shot</span><div class="track"><div class="fill coral" style="width:28.14%"></div></div><strong>0.281</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-notes="This slide is about interpretation. It shows that not every experiment worked as expected, but each taught something about representation, supervision, and prompt sensitivity.">
+      <div>
+        <div class="eyebrow">What Went Well, What Did Not</div>
+        <h2>The strongest results came from task-specific training</h2>
+      </div>
+      <div class="content three-col">
+        <div class="card">
+          <h3>Worked well</h3>
+          <ul>
+            <li>TF-IDF n-grams improved the simple NN.</li>
+            <li>BERT fine-tuning was robust.</li>
+            <li>MLM adaptation gave a small gain.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Was harder</h3>
+          <ul>
+            <li>Llama zero-shot was sensitive to labels and prompts.</li>
+            <li>Few-shot examples did not automatically help.</li>
+            <li>Prompt outputs needed careful parsing.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Surprised me</h3>
+          <ul>
+            <li>Full context helped Llama slightly.</li>
+            <li>Fine-tuning Llama changed performance dramatically.</li>
+            <li>Simple baselines remained competitive.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-notes="This prepares you for the lecturer's Q&A warning. These are not definitions on the slide, but topics you can say you are ready to explain.">
+      <div>
+        <div class="eyebrow">What I Learned</div>
+        <h2>Good results depended on matching the method to the task</h2>
+      </div>
+      <div class="content two-col">
+        <div class="card">
+          <h3>Main takeaways</h3>
+          <ul>
+            <li>Representations shape what the classifier can learn.</li>
+            <li>Supervised fine-tuning is much stronger than prompting for this dataset.</li>
+            <li>LLMs can classify, but prompt design and evaluation setup matter a lot.</li>
+            <li>Domain adaptation can help, but gains may be modest.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Interesing Quote</h3>
+          <span>"How you represent text strongly affects what the classifier can learn."</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-notes="Future work can be quick. The point is to show you understand limitations and next steps without pretending the project was perfect.">
+      <div>
+        <div class="eyebrow">Future Work</div>
+        <h2>If I extended this project, I would focus on fairer and deeper Llama evaluation</h2>
+      </div>
+      <div class="content">
+        <div class="cards">
+          <div class="card"><h3>1. Evaluate QLoRA on a larger stratified test set</h3><p>The bonus result was promising, but the test set was smaller than the BERT evaluation.</p></div>
+          <div class="card"><h3>2. Try better class descriptions for Llama prompts</h3><p>The labels alone may not define the subtle boundaries between related newsgroups.</p></div>
+          <div class="card"><h3>3. Analyze errors by class family</h3><p>The most interesting mistakes happen between related topics such as politics, religion, and computer hardware.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-notes="Close with a crisp summary. Main answer: BERT was best for the main comparable setup, Llama needed adaptation, and the project taught you the difference between prompting and supervised task learning.">
+      <div>
+        <div class="eyebrow">Conclusion</div>
+        <h2>The best full-test model was MLM-adapted BERT, while QLoRA showed why fine-tuning matters for LLMs</h2>
+      </div>
+      <div class="content">
+        <div class="metric-grid">
+          <div class="metric"><span class="value">74.01%</span><span class="label">best full-test accuracy</span></div>
+          <div class="metric"><span class="value">0.7370</span><span class="label">best full-test weighted F1</span></div>
+          <div class="metric"><span class="value">34.20%</span><span class="label">Llama zero-shot cleaned-text accuracy</span></div>
+          <div class="metric"><span class="value">75.00%</span><span class="label">bonus QLoRA subset accuracy</span></div>
+        </div>
+        <div class="quote">My biggest takeaway: Llama-3 is powerful, but for fine-grained classification, task adaptation and evaluation design matter more than model size alone.</div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="notes" id="notes">
+    <h4>Speaker Notes</h4>
+    <p id="noteText"></p>
+  </aside>
+
+  <footer class="footer">
+    <div class="controls">
+      <button id="prev" type="button" aria-label="Previous slide">Prev</button>
+      <button id="next" type="button" aria-label="Next slide">Next</button>
+      <button id="toggleNotes" type="button" aria-label="Toggle speaker notes">Notes</button>
+      <span id="counter"></span>
+    </div>
+    <div class="progress" aria-hidden="true"><span id="progress"></span></div>
+  </footer>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const counter = document.getElementById("counter");
+    const progress = document.getElementById("progress");
+    const notes = document.getElementById("notes");
+    const noteText = document.getElementById("noteText");
+    let index = 0;
+
+    function showSlide(nextIndex) {
+      index = Math.max(0, Math.min(slides.length - 1, nextIndex));
+      slides.forEach((slide, i) => slide.classList.toggle("active", i === index));
+      counter.textContent = `${index + 1} / ${slides.length}`;
+      progress.style.width = `${((index + 1) / slides.length) * 100}%`;
+      noteText.textContent = slides[index].dataset.notes || "";
+      window.location.hash = `slide-${index + 1}`;
+    }
+
+    document.getElementById("prev").addEventListener("click", () => showSlide(index - 1));
+    document.getElementById("next").addEventListener("click", () => showSlide(index + 1));
+    document.getElementById("toggleNotes").addEventListener("click", () => notes.classList.toggle("visible"));
+
+    document.addEventListener("keydown", (event) => {
+      if (["ArrowRight", " ", "PageDown"].includes(event.key)) {
+        event.preventDefault();
+        showSlide(index + 1);
+      }
+      if (["ArrowLeft", "PageUp"].includes(event.key)) {
+        event.preventDefault();
+        showSlide(index - 1);
+      }
+      if (event.key.toLowerCase() === "n") {
+        notes.classList.toggle("visible");
+      }
+      if (event.key === "Home") showSlide(0);
+      if (event.key === "End") showSlide(slides.length - 1);
+    });
+
+    const hashMatch = window.location.hash.match(/slide-(\d+)/);
+    if (hashMatch) {
+      showSlide(Number(hashMatch[1]) - 1);
+    } else {
+      showSlide(0);
+    }
+  </script>
+</body>
+</html>
