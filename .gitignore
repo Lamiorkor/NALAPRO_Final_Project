@@ -4,5 +4,6 @@ __pycache__/
 mlruns/
 .venv/
 .csv
+!outputs/*.csv
 .conda/
 .vscode/
