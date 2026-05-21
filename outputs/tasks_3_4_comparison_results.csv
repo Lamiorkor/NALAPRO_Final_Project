@@ -1,0 +1,13 @@
+Model,Evaluation Samples,Test Accuracy (%),Test Precision,Test Recall,Test F1,Notes
+Word2Vec (1 epoch) + Simple NN,7532,26.43,0.2424,0.2643,0.2349,Task 1 baseline Word2Vec
+Word2Vec (3 epochs) + Simple NN,7532,45.3,0.4452,0.453,0.4384,Task 1 Word2Vec
+Word2Vec (5 epochs) + Simple NN,7532,53.05,0.5283,0.5305,0.5182,Task 1 Word2Vec
+Word2Vec (10 epochs) + Simple NN,7532,59.76,0.6027,0.5976,0.5905,Task 1 Word2Vec
+Word2Vec (20 epochs) + Simple NN,7532,62.61,0.6343,0.6261,0.6176,Task 1 Word2Vec
+TF-IDF + Simple NN,7532,64.23,0.6555,0.6423,0.6458,Task 1 TF-IDF
+"TF-IDF (1,2)-grams + Simple NN",7532,66.95,0.6811,0.6695,0.672,Task 1 extra experiment
+"TF-IDF (1,2)-grams + no empty docs",7317,68.75,0.6897,0.6875,0.687,Best Task 1 result
+BERT base fine-tuned,7317,73.28,0.7299,0.7328,0.7289,Task 2
+BERT MLM-adapted then fine-tuned,7317,74.01,0.7381,0.7401,0.737,MLM samples: 9912
+Llama-3 zero-shot,2000,34.2,0.5101,0.342,0.3147,Unparsed rate: 0.00%
+Llama-3 few-shot,2000,31.75,0.4212,0.3175,0.2814,Unparsed rate: 0.00%

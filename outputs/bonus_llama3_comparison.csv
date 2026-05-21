@@ -1,0 +1,4 @@
+Model,Evaluation Samples,Test Accuracy (%),Test Precision,Test Recall,Test F1,Unparsed Rate,Train Samples,Base Model
+Llama-3 zero-shot,2000,34.2,0.5101,0.342,0.3147,0.0,0,meta-llama/Meta-Llama-3-8B-Instruct
+Llama-3 few-shot,2000,31.75,0.4212,0.3175,0.2814,0.0,0,meta-llama/Meta-Llama-3-8B-Instruct
+Llama-3 QLoRA fine-tuned,500,75.0,0.7546,0.75,0.7434,0.006,2000,meta-llama/Meta-Llama-3-8B-Instruct

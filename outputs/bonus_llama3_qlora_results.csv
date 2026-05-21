@@ -1,0 +1,2 @@
+Model,Evaluation Samples,Test Accuracy (%),Test Precision,Test Recall,Test F1,Unparsed Rate,Train Samples,Base Model
+Llama-3 QLoRA fine-tuned,500,75.0,0.7546,0.75,0.7434,0.006,2000,meta-llama/Meta-Llama-3-8B-Instruct

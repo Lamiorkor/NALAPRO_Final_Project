@@ -1,0 +1,2 @@
+Model,Test Accuracy (%),Test Precision,Test Recall,Test F1
+BERT-base fine-tuned,73.28,0.7299,0.7328,0.7289

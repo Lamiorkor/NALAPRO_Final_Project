@@ -1,0 +1,2 @@
+Model,Test Accuracy (%),Test Precision,Test Recall,Test F1,MLM Eval Loss,MLM Train Samples
+BERT MLM-adapted then fine-tuned,74.01,0.7381,0.7401,0.737,2.392,9912
