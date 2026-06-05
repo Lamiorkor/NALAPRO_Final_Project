@@ -22,31 +22,31 @@ The dataset is loaded directly through scikit-learn. The dataset itself is not i
 ## Repository Structure
 
 ```text
-final_submission/
-  nlp_tasks_1_and_2.ipynb
-  nlp_tasks_3_and_4.ipynb
-  nlp_bonus_llama3_qlora_task.ipynb
-  outputs/
-    bert_task2_results.csv
-    bert_experiment_results.csv
-    bert_confusion_matrix.png
-    bonus_llama3_comparison_f1.png
-    bonus_llama3_comparison.csv
-    bonus_llama3_qlora_confusion_matrix.png
-    bonus_llama3_qlora_predictions.csv
-    bonus_llama3_qlora_results.csv
-    task3_bert_mlm_results.csv
-    task3_confusion_matrix.png
-    task4_llama3_zero_shot_predictions.csv
-    task4_llama3_zero_shot_confusion.png
-    task4_llama3_few_shot_predictions.csv
-    task4_llama3_few_shot_confusion.png
-    task4_llama3_zero_shot_full_context_predictions.csv
-    task4_llama3_zero_shot_full_context_confusion.png
-    tasks_3_4_comparison_results.csv
-    tasks_3_4_comparison_results_with_full_context.csv
-    final_comparison_sorted_by_f1.csv
-    final_comparison_sorted_by_f1.png
+nlp_tasks_1_and_2.ipynb
+nlp_tasks_3_and_4.ipynb
+nlp_bonus_llama3_qlora_task.ipynb
+presentation.html
+outputs/
+   bert_confusion_matrix.png
+   bert_experiment_results.csv
+   bert_task2_results.csv
+   bonus_llama3_comparison.csv
+   bonus_llama3_comparison_f1.png
+   bonus_llama3_qlora_confusion_matrix.png
+   bonus_llama3_qlora_predictions.csv
+   bonus_llama3_qlora_results.csv
+   final_comparison_sorted_by_f1.csv
+   final_comparison_sorted_by_f1.png
+   task3_bert_mlm_results.csv
+   task3_confusion_matrix.png
+   task4_llama3_few_shot_confusion.png
+   task4_llama3_few_shot_predictions.csv
+   task4_llama3_zero_shot_confusion.png
+   task4_llama3_zero_shot_full_context_confusion.png
+   task4_llama3_zero_shot_full_context_predictions.csv
+   task4_llama3_zero_shot_predictions.csv
+   tasks_3_4_comparison_results.csv
+   tasks_3_4_comparison_results_with_full_context.csv
 ```
 
 ## Notebooks
@@ -119,7 +119,7 @@ The notebooks log model configurations, training metrics, evaluation metrics, an
 The final comparison is saved in:
 
 ```text
-final_submission/outputs/final_comparison_sorted_by_f1.csv
+outputs/final_comparison_sorted_by_f1.csv
 ```
 
 The strongest main-model result was:
@@ -156,7 +156,7 @@ Accuracy: 75.00%
 Weighted F1: 0.7434
 ```
 
-Because the QLoRA result uses a smaller evaluation subset, it should be discussed as a bonus experiment rather than treated as directly equivalent to the full-test BERT comparisons.
+Because the QLoRA result uses a smaller evaluation subset, it is not treated as directly equivalent to the full-test BERT comparisons.
 
 ## How to Run
 
@@ -164,7 +164,7 @@ The notebooks were developed and run in Google Colab with GPU acceleration. A GP
 
 ### 1. Open a Notebook in Google Colab
 
-Upload or open one of the notebooks from `final_submission/`:
+Upload or open one of the notebooks from the repository:
 
 ```text
 nlp_tasks_1_and_2.ipynb
@@ -178,7 +178,7 @@ Then select:
 Runtime > Change runtime type > GPU
 ```
 
-For BERT experiments, a T4/L4/A100 GPU is suitable. For Llama-3 and QLoRA experiments, an A100 or L4 is preferred.
+For BERT experiments, a T4/L4/A100 GPU is suitable. For Llama-3 and QLoRA experiments, an A100 GPU is preferred.
 
 ### 2. Set Up W&B
 
@@ -246,7 +246,7 @@ Recommended order:
 2. Run `nlp_tasks_3_and_4.ipynb`.
 3. Optionally run `nlp_bonus_llama3_qlora_task.ipynb`.
 
-The notebooks save CSV and PNG outputs into output folders, and the final selected outputs are included in `final_submission/outputs/`.
+The notebooks save CSV and PNG outputs into output folders, and the final selected outputs are included in `outputs/`.
 
 ## Notes on Reproducibility
 
@@ -274,7 +274,7 @@ The notebooks save CSV and PNG outputs into output folders, and the final select
 
 ## AI Use Statement
 
-AI assistance was used to help debug errors, explain concepts, improve code structure, and support interpretation of results. All code was reviewed, adapted, and understood before inclusion.
+AI assistance was used to help debug errors, explain concepts, improve code structure, and support the interpretation of results. All code was reviewed, adapted, and understood before inclusion.
 
 ## Code Sources
 
